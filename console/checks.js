@@ -16,6 +16,14 @@ class Check{
 		}
 		return false;
 	}
+	_esistefile(path,msg){
+		var file= new File(path);
+		if(file.exists()){
+			return true
+		}
+		msg.reply('il file nuovo.wav non è stato trovato')
+		return false
+	}
 
 }
 module.exports = Check;

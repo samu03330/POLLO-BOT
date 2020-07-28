@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fs = require('fs');  
 const config = require('./auth.json');
 const path = require('path')
-const log = require('./console/logs.js');
+
 const Check= require('./console/checks.js');
 const {spawn} = require('child_process');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@ function generateOutputFile(channel, member) {
 client.on('message', msg => {
   const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (command==='entra') {
     if(check._hasPermission(msg)){
     if (!msg.guild) {
@@ -56,12 +56,12 @@ client.on('message', msg => {
     
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  if(command==='esci') {
+  if(command==='esci'){
     if(check._hasPermission(msg)){ 
       
       if (msg.member.voice.channel) {
         msg.member.voice.channel.leave()    
-      } else {
+      }else{
         msg.reply('devi essere in una vocale!');
         return
       }
@@ -70,16 +70,17 @@ client.on('message', msg => {
     const python = spawn('python', ['conversion.py']);
     
     python.on('close', () => {
-     
-      const canaleRegistrazioni = msg.guild.channels.cache.find(channelName => channelName.name === '🚧│registrazioni');
+      if (check._esistefile('./nuovo.wav',msg)){
+      const canaleRegistrazioni = msg.guild.channels.cache.find(channelName => channelName.name === config.channel);
       
       canaleRegistrazioni.send({
         files: ['./nuovo.wav']
     })
+  }
  
     fs.readdir('.\\',(err, files) =>{
       if (err) {
-          return log.error('cartella non raggiungibile: '+ err);
+          return 'cartella non raggiungibile: '+ err;
       } 
       
       files.forEach(file=>{
