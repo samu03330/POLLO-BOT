@@ -70,14 +70,12 @@ client.on('message', msg => {
     const python = spawn('python', ['conversion.py']);
     
     python.on('close', () => {
-      if (check._esistefile('./nuovo.wav',msg)){
+     // if (check._esistefile('./nuovo.wav',msg)){}
       const canaleRegistrazioni = msg.guild.channels.cache.find(channelName => channelName.name === config.channel);
       
       canaleRegistrazioni.send({
         files: ['./nuovo.wav']
     })
-  }
- 
     fs.readdir('.\\',(err, files) =>{
       if (err) {
           return 'cartella non raggiungibile: '+ err;
@@ -93,6 +91,9 @@ client.on('message', msg => {
       });
 
   });
+  
+ 
+    
   
   });
   }
