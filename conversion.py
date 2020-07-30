@@ -32,7 +32,7 @@ def getlist(cartella):
             inputs += ' -i '+audio  
 
      
-    subprocess.run(f'ffmpeg{inputs} -filter_complex amix=inputs={i}:duration=longest:dropout_transition=2 nuovo.wav')
+    subprocess.run(f'ffmpeg{inputs} -filter_complex amix=inputs={str(i)}:duration=longest:dropout_transition=2 nuovo.wav')
     time.sleep(2)
     
     

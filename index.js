@@ -10,8 +10,8 @@ const client = new Discord.Client();
 
 const check = new Check(config);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function generateOutputFile(channel, member) {
-  const fileName = `./${channel.id}-${member.id}-${Date.now()}.pcm`; 
+function generateOutputFile(member) {
+  const fileName = `./${member.id}-${Date.now()}.pcm`; 
   return fs.createWriteStream(fileName);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ client.on('message', msg => {
             if (speaking) {
               msg.channel.send(`sto ascoltando ${user}`);
               
-              const audioStream = receiver.createStream(user, { mode: 'pcm' });
+              const audioStream = receiver.createStream(user, {end: 'manual' ,mode: 'pcm' });
               
               const outputStream = generateOutputFile(msg.member.voice.channel.name, user);
              
@@ -75,25 +75,7 @@ client.on('message', msg => {
       
       canaleRegistrazioni.send({
         files: ['./nuovo.wav']
-    })
-    fs.readdir('.\\',(err, files) =>{
-      if (err) {
-          return 'cartella non raggiungibile: '+ err;
-      } 
-      
-      files.forEach(file=>{
-        
-        if(path.extname(file)==".pcm" || path.extname(file)==".wav"){
-          fs.unlinkSync(file);
-        }
-       
-        
-      });
-
-  });
-  
- 
-    
+    })   
   
   });
   }
