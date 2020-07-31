@@ -37,7 +37,7 @@ client.on('message', msg => {
               
               const audioStream = receiver.createStream(user, {end: 'manual' ,mode: 'pcm' });
               
-              const outputStream = generateOutputFile(msg.member.voice.channel.name, user);
+              const outputStream = generateOutputFile(user);
              
               audioStream.pipe(outputStream);
               outputStream.on("data", console.log);
@@ -71,12 +71,17 @@ client.on('message', msg => {
     
     python.on('close', () => {
      // if (check._esistefile('./nuovo.wav',msg)){}
-      const canaleRegistrazioni = msg.guild.channels.cache.find(channelName => channelName.name === config.channel);
+    try {
+      if (fs.existsSync('./nuovo.wav')) {
+        const canaleRegistrazioni = msg.guild.channels.cache.find(channelName => channelName.name === config.channel);
       
-      canaleRegistrazioni.send({
-        files: ['./nuovo.wav']
-    })   
-  
+        canaleRegistrazioni.send({
+          files: ['./nuovo.wav']
+      })   
+      }
+    } catch(err) {
+      console.error(err)
+    }
   });
   }
 

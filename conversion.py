@@ -1,4 +1,4 @@
-import os,subprocess,asyncio
+import os,subprocess,asyncio,time
 cartellaPCM = r'C:\\Users\\omaro\\Desktop\\tavolo\\progetti\\discordbot\\recorder'
 
 def getlist(cartella):
@@ -20,7 +20,7 @@ def getlist(cartella):
         else:
             continue
         
-    asyncio.sleep(2)
+    time.sleep(2)
 
     NewNomiFile = os.listdir(cartella) 
     
@@ -34,7 +34,7 @@ def getlist(cartella):
 
      
     subprocess.run(f'ffmpeg{inputs} -filter_complex amix=inputs={str(i)}:duration=longest:dropout_transition=2 nuovo.wav')
-    asyncio.sleep(2)
+    time.sleep(2)
          
 getlist(cartellaPCM)
 
